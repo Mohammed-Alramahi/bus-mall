@@ -48,7 +48,6 @@ function renderContents() {
   ImageConstructor.images[midIndex].viewsNumber++;
   temp=[];
   temp.push(leftIndex,midIndex,rightIndex);
-  console.log(temp);
 }
 renderContents();
 
@@ -74,9 +73,18 @@ function onUserClick(event) {
 
 
   }}
+
+function setStorage(){
+  let serializedArr= JSON.stringify(ImageConstructor.images);
+  if(serializedArr!==null){
+    let arr=JSON.parse(localStorage.getItem('Image'));
+    ImageConstructor.images=arr;
+  }
+  localStorage.setItem('Image',serializedArr);
+}
+
 let totalVotesNumber=[];
 let totalViewsNumber=[];
-
 function showResults() {
 
   //From previous lab
@@ -91,7 +99,6 @@ function showResults() {
     totalVotesNumber.push(ImageConstructor.images[i].votesNumber);
     totalViewsNumber.push(ImageConstructor.images[i].viewsNumber);
   }
-
   showResultsBtn.removeEventListener('click', showResults);
   showResultsBtn.style.display='none';
   //list.style.display='block';
@@ -100,10 +107,9 @@ function showResults() {
   leftImage.style.display='none';
   heading.style.display='block';
   drawChart();
+  setStorage();
 }
-
 function drawChart(){
-  console.log(totalVotesNumber);
   let ctx = document.getElementById('myChart').getContext('2d');
   myChart = new Chart(ctx, {
     type: 'bar',
@@ -135,3 +141,4 @@ function drawChart(){
     }
   });
 }
+
