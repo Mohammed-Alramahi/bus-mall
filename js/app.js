@@ -76,11 +76,14 @@ function onUserClick(event) {
 
 function setStorage(){
   let serializedArr= JSON.stringify(ImageConstructor.images);
-  if(serializedArr!==null){
-    let arr=JSON.parse(localStorage.getItem('Image'));
+  localStorage.setItem('Image',serializedArr);
+}
+function getStorage(){
+  if(localStorage.getItem('Image')!==null)
+  {
+  let arr=JSON.parse(localStorage.getItem('Image'));
     ImageConstructor.images=arr;
   }
-  localStorage.setItem('Image',serializedArr);
 }
 
 let totalVotesNumber=[];
@@ -106,8 +109,10 @@ function showResults() {
   middleImage.style.display='none';
   leftImage.style.display='none';
   heading.style.display='block';
-  drawChart();
   setStorage();
+  drawChart();
+  getStorage();
+ 
 }
 function drawChart(){
   let ctx = document.getElementById('myChart').getContext('2d');
