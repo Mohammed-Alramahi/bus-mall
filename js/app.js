@@ -111,9 +111,8 @@ function showResults() {
   heading.style.display='block';
   setStorage();
   drawChart();
-  getStorage();
- 
 }
+getStorage();
 function drawChart(){
   let ctx = document.getElementById('myChart').getContext('2d');
   myChart = new Chart(ctx, {
